@@ -1,0 +1,61 @@
+package com.example.transactionstarter.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.transaction.enums.TransactionStatus;
+import com.example.transactionstarter.entity.Transaction;
+import com.example.transactionstarter.service.TransactionService;
+
+
+@RestController
+@RequestMapping("/transaction")
+public class TransactionController {
+	
+	
+	private final TransactionService transactionService;
+	
+	 public TransactionController(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
+	 @PostMapping("/createTransaction")
+	 public ResponseEntity<Transaction>createTransaction
+	 (@RequestBody Transaction transaction){
+		 Transaction created = transactionService.createTransaction(transaction);
+		 return ResponseEntity.status(HttpStatus.CREATED).body(created);
+		 
+	 }
+	 @GetMapping("/{transactionId}")
+	 public ResponseEntity<Transaction>getTransaction(
+			 @PathVariable String transactionId){
+		 Transaction transaction = transactionService.getTransaction(transactionId);
+		 return ResponseEntity.ok(transaction);
+	 }
+	 
+	 @PatchMapping("/{transactionId}/status")
+	 public ResponseEntity<Transaction>updateTransactionStatus(
+			 @PathVariable String transactionId,@RequestParam TransactionStatus status){
+		 	Transaction updated = transactionService.updateTransactionStatus(transactionId, status);
+		 	return ResponseEntity.ok(updated);
+	 }
+	 @GetMapping("/customer/{customerId}")
+	    public ResponseEntity<List<Transaction>> getCustomerTransactions(
+	            @PathVariable String customerId) {
+
+	        List<Transaction> transactions =
+	                transactionService.getCustomerTransactions(customerId);
+
+	        return ResponseEntity.ok(transactions);
+	    }	
+	 
+}

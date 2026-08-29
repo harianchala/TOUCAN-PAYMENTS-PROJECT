@@ -2,10 +2,13 @@ package com.example.transactionstarter.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.transaction.enums.TransactionStatus;
-import com.example.transactionstart.entity.Transaction;
+import com.example.transactionstarter.entity.Transaction;
 import com.example.transactionstarter.repository.TransactionRepository;
 
+@Service
 public class TransactionService {
 	private final TransactionRepository transactionRepository;
 	

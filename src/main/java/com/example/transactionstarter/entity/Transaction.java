@@ -1,4 +1,4 @@
-package com.example.transactionstart.entity;
+package com.example.transactionstarter.entity;
 
 import java.math.BigDecimal;
 

@@ -2,7 +2,8 @@ package com.example.transactionstarter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.transactionstart.entity.Transaction;
+import com.example.transactionstarter.entity.Transaction;
+
 import java.util.List;
 
 
