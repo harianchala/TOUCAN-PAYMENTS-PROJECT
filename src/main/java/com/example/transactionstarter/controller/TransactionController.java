@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.transaction.enums.TransactionStatus;
 import com.example.transactionstarter.entity.Transaction;
+import com.example.transactionstarter.enums.TransactionStatus;
 import com.example.transactionstarter.service.TransactionService;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -30,7 +32,7 @@ public class TransactionController {
 	}
 	 @PostMapping("/createTransaction")
 	 public ResponseEntity<Transaction>createTransaction
-	 (@RequestBody Transaction transaction){
+	 (@Valid @RequestBody Transaction transaction){
 		 Transaction created = transactionService.createTransaction(transaction);
 		 return ResponseEntity.status(HttpStatus.CREATED).body(created);
 		 

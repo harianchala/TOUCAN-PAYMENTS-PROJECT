@@ -2,13 +2,16 @@ package com.example.transactionstarter.entity;
 
 import java.math.BigDecimal;
 
-import com.example.transaction.enums.TransactionStatus;
-import com.example.transaction.enums.TransactionType;
+import com.example.transactionstarter.enums.TransactionStatus;
+import com.example.transactionstarter.enums.TransactionType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 
@@ -17,14 +20,20 @@ public class Transaction {
 	
 
 	@Id
+	@NotBlank
 	private	String transactionId;
+	@NotBlank
 	private	String customerId;
+	@NotNull
+	@Positive
 	private	BigDecimal amount;
+	@NotBlank
 	private String currency;
 	
+	@NotNull
 	 @Enumerated(EnumType.STRING)
 	    private TransactionType transactionType;
-	 
+	 @NotNull
 	    @Enumerated(EnumType.STRING)
 	    private TransactionStatus status;
 	    

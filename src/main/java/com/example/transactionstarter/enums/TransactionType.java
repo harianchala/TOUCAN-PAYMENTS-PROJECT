@@ -1,4 +1,4 @@
-package com.example.transaction.enums;
+package com.example.transactionstarter.enums;
 
 public enum TransactionType {
 		PAYMENT,
