@@ -1,109 +1,100 @@
-# Transaction Starter Project
+# TOUCAN – Transaction Service
 
-This is the starter project for the Customer Transactions exercise.
+## 1. Understanding of the Problem
 
-## Before you start
+The objective of this project is to build a Spring Boot transaction service that can create and manage transactions. Each transaction contains a transaction ID, customer ID, amount, currency, transaction type, and transaction status.
 
-The first thing you should do after cloning the repository is:
+I implemented the application using an MVC-based structure with Entity, Repository, Service, Controller, and Exception Handling layers.
 
-### Linux / macOS
+The main operations implemented are:
 
-```bash
-./mvnw clean test
-```
+* Create a transaction
+* Get a transaction by transaction ID
+* Update transaction status
+* Get all transactions for a customer
 
-### Windows
+New transactions are created with `PENDING` status. A transaction status can only be changed while the current status is `PENDING`.
 
-```bat
-mvnw.cmd clean test
-```
+## 2. Assumptions
 
-The sample test should pass before you begin implementing the exercise.
+* Transaction ID is unique and is used as the primary key.
+* Transaction IDs and customer IDs are represented as `String` because they can contain both letters and numbers.
+* `BigDecimal` is used for transaction amounts because it is appropriate for precise financial values.
+* Currency is represented as a `String`.
+* Transaction type is restricted to `PAYMENT`, `TRANSFER`, and `REFUND`.
+* Transaction status is restricted to `PENDING`, `COMPLETED`, `FAILED`, and `CANCELLED`.
+* A transaction that is no longer `PENDING` cannot have its status changed.
 
-## What is already provided
+## 3. Validation Rules
 
-- Java 17
-- Spring Boot
-- Maven wrapper
-- Spring Web
-- Spring Data JPA
-- H2 embedded database
-- JUnit / Spring Boot Test
-- A sample REST endpoint: `GET /api/sample`
-- A sample test that loads the Spring context
+The following validation rules are implemented:
 
+* `@NotBlank` — transaction ID, customer ID, and currency cannot be empty or blank.
+* `@Positive` — transaction amount must be greater than zero.
+* `@NotNull` — transaction type and transaction status cannot be null.
+* `@Valid` is used in the controller to trigger request validation.
+* ENUMS restrict transaction type and status to their predefined values.
 
-## Exercise
+## 4. API Endpoints
 
-Implement these four operations:
+| Method | Endpoint                              | Purpose                             |
+| ------ | ------------------------------------- | ----------------------------------- |
+| POST   | `/transaction/createTransaction`      | Create a new transaction            |
+| GET    | `/transaction/{transactionId}`        | Get a transaction by ID             |
+| PATCH  | `/transaction/{transactionId}/status` | Update the status of a transaction  |
+| GET    | `/transaction/customer/{customerId}`  | Get all transactions for a customer |
 
-1. Create transaction
-2. Get transaction
-3. Update transaction status
-4. Get all transactions for a customer
+`@RequestBody` is used to convert JSON request data into Java objects using Jackson. `@PathVariable` is used for transaction/customer IDs, and `@RequestParam` is used when updating the transaction status.
 
+## 5. Testing Approach
 
-You may change the surrounding design if you believe your solution is better.
+I used JUnit 5 and Mockito for automated testing.
 
-## Transaction fields
+The tests cover:
 
-Every transaction contains:
+1. Successful transaction creation.
+2. Invalid transaction rejected by validation.
+3. Duplicate transaction ID rejected.
+4. Transaction not found.
+5. Successful transaction status update.
+6. Successful transaction retrieval.
 
-- Transaction ID
-- Customer ID
-- Amount
-- Currency
-- Transaction Type
-- Transaction Status
+Mockito is used to mock the repository when testing service-layer business logic. `MockMvc` is used to verify that invalid API input is rejected with `400 Bad Request`.
 
-### Validation rules
+## 6. Known Limitations
 
-Define what makes a transaction valid. At minimum, consider:
+* DTOs are not used; the entity is directly used for JSON request/response mapping.
+* Authentication and authorization are not implemented because they were outside the provided requirements.
+* Lombok was not used in the current implementation. Getters, setters, and constructors were written explicitly. Lombok could be introduced later to reduce boilerplate code.
 
-- Transaction ID
-- Customer ID
-- Amount
-- Currency
-- Transaction type
-- Initial status
+## 7. Improvements With More Time
 
-Also explain any business validation you add beyond the annotations already supplied.
+With more time, I would:
 
-## API skeleton
+* Introduce DTOs to separate API models from persistence entities.
+* Add authentication and authorization.
+* Use Lombok to reduce repetitive getter, setter, and constructor code where appropriate.
+* Add more detailed validation and field-level error responses.
+* Improve the error response structure with additional details such as timestamp, path, and validation errors.
 
-### Create
+## 8. Assigned Variant
 
-`TODO`
+The application was implemented according to the assigned variant provided in the invitation. No additional assumptions were made about the variant beyond the requirements provided for this candidate.
 
-Example:
+# AI Usage Disclosure
 
-```
-TODO
-```
+AI assistance was used during the development of this project as a supporting tool for troubleshooting, understanding concepts, and testing guidance.
 
-### Get
+I used AI primarily for:
 
-`TODO`
+* Troubleshooting Spring Boot runtime errors and understanding their causes.
+* Getting guidance on Spring Boot controller structure, annotations, and API endpoints.
+* Understanding validation using `@Valid`, `@NotBlank`, `@NotNull`, and `@Positive`.
+* Getting guidance while creating JUnit 5 and Mockito test cases.
+* Understanding how to structure custom exceptions and `GlobalExceptionHandler`.
 
-### Update status
+A significant area where AI helped was troubleshooting runtime errors. For example, I encountered Spring bean configuration issues and a port `8080` conflict while running the application. AI helped me understand the error messages and possible solutions.
 
-`TODO`
+For testing, AI provided guidance on JUnit and Mockito and helped me identify that validation should be tested through the controller layer using `MockMvc`, rather than testing only the service layer.
 
-Example:
-
-```
-TODO
-```
-
-### Get customer transactions
-
-`TODO`
-
-## Testing expectations
-
-Add at least four meaningful tests.
-
-Your tests should cover more than just application startup. 
-
-You decide exactly which tests provide the best coverage.
-
+The final implementation was verified by testing the API endpoints and running the JUnit tests successfully. I understand the code submitted and can explain the implementation and make changes to it if required.
