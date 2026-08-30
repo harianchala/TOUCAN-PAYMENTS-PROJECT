@@ -83,18 +83,17 @@ The application was implemented according to the assigned variant provided in th
 
 # AI Usage Disclosure
 
-AI assistance was used during the development of this project as a supporting tool for troubleshooting, understanding concepts, and testing guidance.
+I used **ChatGPT** as an AI coding assistant during the development of this project.
 
-I used AI primarily for:
+I mainly used AI for:
 
-* Troubleshooting Spring Boot runtime errors and understanding their causes.
-* Getting guidance on Spring Boot controller structure, annotations, and API endpoints.
-* Understanding validation using `@Valid`, `@NotBlank`, `@NotNull`, and `@Positive`.
-* Getting guidance while creating JUnit 5 and Mockito test cases.
-* Understanding how to structure custom exceptions and `GlobalExceptionHandler`.
+* Creating and understanding the `GlobalExceptionHandler` and custom exception handling.
+* Getting guidance on writing JUnit 5 and Mockito test cases.
+* Troubleshooting compile-time and runtime errors encountered during development.
+* Troubleshooting the port `8080` conflict when starting the Spring Boot application.
 
-A significant area where AI helped was troubleshooting runtime errors. For example, I encountered Spring bean configuration issues and a port `8080` conflict while running the application. AI helped me understand the error messages and possible solutions.
+The significant code suggested by AI was related to the `GlobalExceptionHandler` and testing structure. I reviewed and adapted the suggestions to match my existing project structure, packages, classes, and business logic.
 
-For testing, AI provided guidance on JUnit and Mockito and helped me identify that validation should be tested through the controller layer using `MockMvc`, rather than testing only the service layer.
+Some AI suggestions did not directly match my project configuration, so I checked the actual compiler and runtime error messages and corrected the package names, imports, and configuration where necessary.
 
-The final implementation was verified by testing the API endpoints and running the JUnit tests successfully. I understand the code submitted and can explain the implementation and make changes to it if required.
+I verified the final implementation by running the application, testing the API endpoints, checking validation and exception handling, and running the JUnit test suite successfully. I understand the code submitted and can explain or modify it during the live session.
