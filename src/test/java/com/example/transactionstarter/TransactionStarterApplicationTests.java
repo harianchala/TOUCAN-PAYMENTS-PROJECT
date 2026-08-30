@@ -31,7 +31,7 @@ class TransactionServiceTest {
     private TransactionService transactionService;
 
 
-    // 1. Create transaction successfully
+  
     @Test
     void createTransactionSuccessfully() {
 
@@ -61,7 +61,7 @@ class TransactionServiceTest {
     }
 
 
-    // 2. Duplicate transaction ID
+    
     @Test
     void duplicateTransactionIdThrowsException() {
 
@@ -84,7 +84,7 @@ class TransactionServiceTest {
     }
 
 
-    // 3. Get transaction successfully
+    
     @Test
     void getTransactionSuccessfully() {
 
@@ -109,7 +109,7 @@ class TransactionServiceTest {
     }
 
 
-    // 4. Transaction not found
+  
     @Test
     void getTransactionNotFoundThrowsException() {
 
@@ -123,7 +123,7 @@ class TransactionServiceTest {
     }
 
 
-    // 5. Update transaction status successfully
+   
     @Test
     void updateTransactionStatusSuccessfully() {
 
